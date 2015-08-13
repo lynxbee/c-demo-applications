@@ -26,5 +26,9 @@ int main (int argc, char **argv) {
 	} else {
 		printf("myfile.txt file written successfully\n");
 	}
+
+	fcolse(fp);
+	free(str);
+
 	return 0;
 }
