@@ -12,7 +12,10 @@ Run as:
 Refer Makefile for more details for process.
 
 Use below command to know the symbols added into static library
-	$ nm -s testlib.a 
+	$ nm -s testlib.a
+
+Refer http://tldp.org/HOWTO/Program-Library-HOWTO/index.html
+for more information. 
 */
 
 
