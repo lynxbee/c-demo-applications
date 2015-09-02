@@ -17,6 +17,7 @@ Run as:
 void print_directory_contents(char *dirname) {
 	DIR *dir;
 	struct dirent *entry;
+	int r;
 
 	dir = opendir(dirname);
 
@@ -29,7 +30,11 @@ void print_directory_contents(char *dirname) {
 
 			printf("%s \n", entry->d_name);
 		}
-		closedir(dir);
+		r = closedir(dir);
+		if (!r)
+			printf("Directory :%s closed successfully\n", dirname);
+		else
+			perror(dirname);
 	}
 }
 
