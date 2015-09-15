@@ -1,0 +1,45 @@
+1) Create CMakeLists.txt and helloworld.c as,
+
+CMakeLists.txt
+--------------
+cmake_minimum_required (VERSION 2.6)
+project (hello)
+add_executable(hello helloworld.c)
+
+helloworld.c
+------------
+#include <stdio.h>
+
+int main(int argc, char **argv) {
+	printf("Hello World from cmake\n");
+	return 0;
+}
+
+2) Configure using below command, i.e. " cmake dir_name" dot (.) means current directory
+
+ $ cmake .
+-- The C compiler identification is GNU 4.8.4
+-- The CXX compiler identification is GNU 4.8.4
+-- Check for working C compiler: /usr/bin/cc
+-- Check for working C compiler: /usr/bin/cc -- works
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/c++
+-- Check for working CXX compiler: /usr/bin/c++ -- works
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Configuring done
+-- Generating done
+-- Build files have been written to: ~/devlab/lynxbee/c-demo-applications/build/cmake
+
+3) Compile using below command,
+
+$ make
+-- Configuring done
+-- Generating done
+-- Build files have been written to: ~/devlab/lynxbee/c-demo-applications/build/cmake
+Scanning dependencies of target hello
+[100%] Building C object CMakeFiles/hello.dir/helloworld.c.o
+Linking C executable hello
+[100%] Built target hello
+
