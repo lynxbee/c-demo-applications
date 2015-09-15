@@ -4,4 +4,13 @@ project (hello)
 set (hello_VERSION_MAJOR 1)
 set (hello_VERSION_MINOR 0)
 
+configure_file (
+	"${PROJECT_SOURCE_DIR}/helloConfig.h.in"
+	"${PROJECT_BINARY_DIR}/helloConfig.h"
+)
+
+# add the binary tree to the search path for include files
+# so that we will find helloConfig.h
+include_directories("${PROJECT_BINARY_DIR}")
+
 add_executable(hello helloworld.c)
