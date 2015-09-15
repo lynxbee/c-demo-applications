@@ -28,21 +28,17 @@ aclocal.m4 files and create the configure script:
 $ aclocal
 $ autoconf
 
-5) following command creates scripts,
+5) touch NEWS README AUTHORS ChangeLog
+This step is necessary, as if we dint create those
+files, automake will not create Makefile.in
+
+6) following command creates scripts,
 
 $ automake -a
-configure.ac:2: warning: AM_INIT_AUTOMAKE: two- and three-arguments forms are deprecated.  For more info, see:
-configure.ac:2: http://www.gnu.org/software/automake/manual/automake.html#Modernize-AM_005fINIT_005fAUTOMAKE-invocation
-configure.ac:3: installing './compile'
-configure.ac:2: installing './install-sh'
-configure.ac:2: installing './missing'
-Makefile.am: installing './INSTALL'
-Makefile.am: error: required file './NEWS' not found
-Makefile.am: error: required file './README' not found
-Makefile.am: error: required file './AUTHORS' not found
-Makefile.am: error: required file './ChangeLog' not found
-Makefile.am: installing './COPYING' using GNU General Public License v3 file
-Makefile.am:     Consider adding the COPYING file to the version control system
-Makefile.am:     for your code, to avoid questions about which license your project uses
-Makefile.am: installing './depcomp'
+
+7) ./configure
+
+8) make
+
+9) ./hello
 
