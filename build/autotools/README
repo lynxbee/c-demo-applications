@@ -1,0 +1,48 @@
+1) Create Makefile.am as,
+
+bin_PROGRAMS = hello
+hello_SOURCES = helloworld.c
+
+2) Create configure.ac file as,
+AC_INIT(helloworld.c)
+AM_INIT_AUTOMAKE(hello,0.1)
+AC_PROG_CC
+AC_PROG_INSTALL
+AC_OUTPUT(Makefile)
+
+3) Create helloworld.c file as,
+
+helloworld.c
+------------
+#include <stdio.h>
+
+int main(int argc, char **argv) {
+	printf("Hello World from autoconf\n");
+	return 0;
+}
+
+4) Generate the local aclocal.m4 files and create the configure script:
+ The following GNU Autotools generate the local
+aclocal.m4 files and create the configure script:
+
+$ aclocal
+$ autoconf
+
+5) following command creates scripts,
+
+$ automake -a
+configure.ac:2: warning: AM_INIT_AUTOMAKE: two- and three-arguments forms are deprecated.  For more info, see:
+configure.ac:2: http://www.gnu.org/software/automake/manual/automake.html#Modernize-AM_005fINIT_005fAUTOMAKE-invocation
+configure.ac:3: installing './compile'
+configure.ac:2: installing './install-sh'
+configure.ac:2: installing './missing'
+Makefile.am: installing './INSTALL'
+Makefile.am: error: required file './NEWS' not found
+Makefile.am: error: required file './README' not found
+Makefile.am: error: required file './AUTHORS' not found
+Makefile.am: error: required file './ChangeLog' not found
+Makefile.am: installing './COPYING' using GNU General Public License v3 file
+Makefile.am:     Consider adding the COPYING file to the version control system
+Makefile.am:     for your code, to avoid questions about which license your project uses
+Makefile.am: installing './depcomp'
+
