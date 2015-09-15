@@ -13,4 +13,10 @@ configure_file (
 # so that we will find helloConfig.h
 include_directories("${PROJECT_BINARY_DIR}")
 
+#procedure to create and add library
+include_directories("${PROJECT_SOURCE_DIR}/MathFunctions")
+add_subdirectory (MathFunctions)
+
 add_executable(hello helloworld.c)
+#link the library with main program
+target_link_libraries (hello MathFunctions)
