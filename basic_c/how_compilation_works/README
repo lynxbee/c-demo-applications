@@ -1,0 +1,158 @@
+1) Write the code in editor as,
+
+$ vim hello.c
+#include <stdio.h>
+
+int main(void) {
+        printf("Hello World\n");
+}
+
+Check the type of file, we just now created using editor,
+
+$ file hello.c 
+hello.c: C source, ASCII text
+
+2) Second step of compilation is preprocessing, here we will run
+   the preprocessing command manually, as per "man" page of gcc
+   following is the description of 'E'
+
+       -E  Stop after the preprocessing stage; do not run the compiler proper.  The output is in the form of
+           preprocessed source code, which is sent to the standard output.
+
+           Input files that don't require preprocessing are ignored.
+
+   since as per man page, output of preprocessor is by default sent to "standard out" terminal,
+   we will save this in temporary file t.i
+
+       -o file
+           Place output in file file.  This applies to whatever sort of output is being produced, whether it be
+           an executable file, an object file, an assembler file or preprocessed C code.
+
+           If -o is not specified, the default is to put an executable file in a.out, the object file for
+           source.suffix in source.o, its assembler file in source.s, a precompiled header file in
+           source.suffix.gch, and all preprocessed C source on standard output.
+
+
+$ gcc -E hello.c -o t.i
+
+$ ls
+hello.c  t.i
+
+$ file t.i
+t.i: C source, ASCII text
+
+So, Above we seen how preprocessor gets executed and creates the preprocessed output.
+
+3) Third step is "compiler" which creates the "Assembly" code, as below,
+	as per "man" page of "gcc", here is what -S does,
+
+       -S  Stop after the stage of compilation proper; do not assemble.  The output is in the form of an
+           assembler code file for each non-assembler input file specified.
+
+           By default, the assembler file name for a source file is made by replacing the suffix .c, .i, etc.,
+           with .s.
+
+           Input files that don't require compilation are ignored.
+
+$ gcc -S t.i
+
+$ ls
+hello.c  t.i  t.s
+
+$ file t.s 
+t.s: assembler source, ASCII text
+
+So as tried, above compiler created "t.s" assembly code.
+
+4) Forth step is "assembler" which creates the actual object files from input assembler code as below,
+	as per "man" page of "gcc" , -c means,
+
+       -c  Compile or assemble the source files, but do not link.  The linking stage simply is not done.  The
+           ultimate output is in the form of an object file for each source file.
+
+           By default, the object file name for a source file is made by replacing the suffix .c, .i, .s, etc.,
+           with .o.
+
+           Unrecognized input files, not requiring compilation or assembly, are ignored.
+
+$ gcc -c t.s
+
+$ ls
+hello.c  t.i  t.o  t.s
+
+$ file t.o
+t.o: ELF 32-bit LSB relocatable, Intel 80386, version 1 (SYSV), not stripped
+
+Above "file" command shows, assembler created relocatable object code.
+
+5) Fifth i.e. last stage if execution of "linker" which actually links the object code
+   to create the final executable. This can be done as below, ( for detailed understanding of
+   how linker "ld" creates executable, check the manual running of "ld" as below)
+
+$ gcc t.o
+
+$ ls
+a.out  hello.c  t.i  t.o  t.s
+
+$ file a.out
+a.out: ELF 32-bit LSB executable, Intel 80386, version 1 (SYSV), dynamically linked, interpreter /lib/ld-linux.so.2, for GNU/Linux 2.6.32, BuildID[sha1]=a21d980d26c5abf4c5d856c92d8d92ff05d9d82e, not stripped
+
+$ ./a.out 
+Hello World
+
+
+Above same things we can now create using individual binaries "cc1", "as", "ld" ,
+
+1) Compiler cc1 creates the assembly code as,
+
+/usr/lib/gcc/i686-linux-gnu/5/cc1 hello.c -o t.s
+ main
+Analyzing compilation unit
+Performing interprocedural optimizations
+ <*free_lang_data> <visibility> <build_ssa_passes> <opt_local_passes> <free-inline-summary> <whole-program> <inline>Assembling functions:
+ main
+Execution times (seconds)
+ phase parsing           :   0.01 (50%) usr   0.00 ( 0%) sys   0.01 (50%) wall     305 kB (34%) ggc
+ phase opt and generate  :   0.01 (50%) usr   0.00 ( 0%) sys   0.01 (50%) wall      31 kB ( 4%) ggc
+ preprocessing           :   0.01 (50%) usr   0.00 ( 0%) sys   0.00 ( 0%) wall     135 kB (15%) ggc
+ varconst                :   0.00 ( 0%) usr   0.00 ( 0%) sys   0.01 (50%) wall       0 kB ( 0%) ggc
+ rest of compilation     :   0.01 (50%) usr   0.00 ( 0%) sys   0.01 (50%) wall       6 kB ( 1%) ggc
+ TOTAL                 :   0.02             0.00             0.02                895 kB
+
+2) assembler to create object files.
+
+$ as -v --32 -o t.o t.s
+
+3) Now, you can try to understand below command, how "ld" uses the object files as input and creates the executable,
+
+$ ld -plugin /usr/lib/gcc/i686-linux-gnu/5/liblto_plugin.so \
+         -plugin-opt=/usr/lib/gcc/i686-linux-gnu/5/lto-wrapper \
+         -plugin-opt=-fresolution=/tmp/ccDfxKHA.res \
+         -plugin-opt=-pass-through=-lgcc \
+         -plugin-opt=-pass-through=-lgcc_s \
+         -plugin-opt=-pass-through=-lc \
+         -plugin-opt=-pass-through=-lgcc \
+         -plugin-opt=-pass-through=-lgcc_s \
+         --sysroot=/ --build-id --eh-frame-hdr \
+         -m elf_i386 --hash-style=gnu --as-needed \
+         -dynamic-linker /lib/ld-linux.so.2 \
+         -z relro /usr/lib/gcc/i686-linux-gnu/5/../../../i386-linux-gnu/crt1.o \
+        /usr/lib/gcc/i686-linux-gnu/5/../../../i386-linux-gnu/crti.o \
+         /usr/lib/gcc/i686-linux-gnu/5/crtbegin.o \
+         -L/usr/lib/gcc/i686-linux-gnu/5 \
+         -L/usr/lib/gcc/i686-linux-gnu/5/../../../i386-linux-gnu \
+         -L/usr/lib/gcc/i686-linux-gnu/5/../../../../lib \
+         -L/lib/i386-linux-gnu \
+         -L/lib/../lib \
+         -L/usr/lib/i386-linux-gnu \
+         -L/usr/lib/../lib \
+         -L/usr/lib/gcc/i686-linux-gnu/5/../../.. t.o \
+         -lgcc --as-needed -lgcc_s --no-as-needed \
+         -lc -lgcc --as-needed -lgcc_s --no-as-needed \
+         /usr/lib/gcc/i686-linux-gnu/5/crtend.o \
+        /usr/lib/gcc/i686-linux-gnu/5/../../../i386-linux-gnu/crtn.o
+
+In above, check "21st" line as "t.o" as input, and by default it creates "a.out" as executable
+in ubuntu "/usr/lib/gcc/i686-linux-gnu/5/collect2" is also used as a actual linker.
+
+You can now check the actual contents of files "t.i", "t.s", "t.o" in this directory.
