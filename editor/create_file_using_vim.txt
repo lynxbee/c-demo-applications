@@ -1,0 +1,42 @@
+$ vim filename.c
+
+It will create a new file and show like ""filename.c" [New File]" at bottom of screen.
+Now to edit and add something into the file we have to change to "Insert" mode, to do this
+hit "Insert" button from the keyboard, and file will be ready to edit with message like
+-- INSERT -- at the bottom of screen.
+
+Now, using can use below keys to actually write some code.
+"Enter" - If you want to add new line
+Right, Left Arrow Key - To move cursor from right to left
+Up, Down Arrow Key - To move cursor from one line to another
+Space - To add space
+
+Lets say, we will write the code as,
+
+#include <stdio.h>
+
+int main(void) {
+	printf("Hello World");
+	return 0;
+}
+
+Once you have written above code, and now you are sure that you want to
+save this file, type below key sequence.
+
+ESCAPE
+:wq!
+
+The meaning of above key sequence is, ESCAPE removes "Insert" Mode
+:w is for writing the file
+q is for quitting the file
+! is for force quit.
+so ":wq!" becomes save and quit.
+":w" becomes only save
+"q!" becomes quit without saving.
+
+Now, after saving & closing file, you will see the newly created "filename.c"
+as
+
+$ ls -alh
+-rw-rw-r--  1 myuser myuser   76 Aug 26 21:47 filename.c
+ 

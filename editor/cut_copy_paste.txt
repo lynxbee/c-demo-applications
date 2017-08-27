@@ -1,0 +1,14 @@
+To cut - type
+ESCAPE
+press key "v"
+select text to cut
+press key "d"
+
+ESCAPE
+go to where you want to paste
+
+press key "p" to paste.
+
+Copy :
+yy - single line copy
+number yy - to copy multiple lines for ex. 3 yy will copy 3 lines from cursor line.

@@ -1,0 +1,11 @@
+1) Anonymus pipes
+2) Named pipes
+3) Sockets
+4) Message queues
+5) Shared Memory
+
+======= Details ==================
+4) Message Queues
+   Used for sending and receiving messages
+5) Shared Memory
+   Used to allow several processes share data in memory 

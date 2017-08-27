@@ -41,6 +41,8 @@ int main(void) {
 		printf("%c", ch);
 	}
 
+	printf("This is demo session\n");
+
 	return 0;
 }
 

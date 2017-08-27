@@ -11,8 +11,8 @@ void printbits(int z) {
 }
 
 int main(int argc, char **argv) {
-	int x = 12;
-	int y = 123;
+	int x = 4;
+	int y = 8;
 
 	printf("%d results to bits as: => ", x);
 	printbits(x);

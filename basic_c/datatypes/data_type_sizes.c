@@ -39,3 +39,21 @@ int main(void) {
 
 	return 0;
 }
+
+/*
+sizeof (char) = 1 
+sizeof (signed char) = 1 
+sizeof (unsigned char) = 1 
+sizeof (int) = 4 
+sizeof (short int) = 2 
+sizeof (long int) = 4 
+sizeof (signed int) = 4 
+sizeof (unsigned int) = 4 
+sizeof (short signed int) = 2 
+sizeof (short unsigned int) = 2 
+sizeof (long signed int) = 4 
+sizeof (long unsigned int) = 4 
+sizeof (float) = 4 
+sizeof (double) = 8 
+sizeof (long double) = 12 
+*/
