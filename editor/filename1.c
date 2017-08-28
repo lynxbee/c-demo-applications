@@ -1,11 +1,6 @@
 #include <stdio.h>
 
-int add (int a, int b) {
-	return a+b;
-}
-
 int main(void) {
-	printf("Hello World : first program\n");
-	printf("addition = %d\n", add(10,4));
+	printf("Hello World : First program\n");
 	return 0;
 }
